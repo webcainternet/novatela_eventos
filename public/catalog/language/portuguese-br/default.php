@@ -67,5 +67,3 @@ $_['error_upload_6']        = 'Atenção: Missing a temporary folder!';
 $_['error_upload_7']        = 'Atenção: Failed to write file to disk!';
 $_['error_upload_8']        = 'Atenção: File upload stopped by extension!';
 $_['error_upload_999']      = 'Atenção: No error code available!';
-
-$_['button_shopping']       = 'Continuar comprando';
