@@ -1,4 +1,4 @@
-d<?php
+<?php
 // Heading
 $_['heading_title'] = 'Total de Vendas';
 
