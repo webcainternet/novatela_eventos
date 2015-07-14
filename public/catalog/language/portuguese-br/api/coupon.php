@@ -1,6 +1,6 @@
 <?php
 // Text
-$_['text_success']     = 'O seu cupom de desconto foi aplicado com sucesso!';
+$_['text_success']     = 'O seu cupom de cortesia foi aplicado com sucesso!';
 
 // Error
 $_['error_permission'] = 'Atenção: Você não tem permissão para acessar a API!';

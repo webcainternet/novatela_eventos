@@ -1,9 +1,9 @@
 <?php
 // Heading
-$_['heading_title'] = 'Use Cupom de Desconto';
+$_['heading_title'] = 'Use Cupom de Cortesia';
 
 // Text
-$_['text_success']  = 'Seu cupom de desconto foi aplicado com sucesso!';
+$_['text_success']  = 'Seu cupom de cortesia foi aplicado com sucesso!';
 
 // Entry
 $_['entry_coupon']  = 'Digite seu cupom aqui';

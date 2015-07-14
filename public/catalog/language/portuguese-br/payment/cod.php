@@ -1,3 +1,3 @@
 <?php
 // Text
-$_['text_title'] = 'Pagar quando retirar na loja';
+$_['text_title'] = 'Cortesia - Já inclui um Cupom de Desconto';
