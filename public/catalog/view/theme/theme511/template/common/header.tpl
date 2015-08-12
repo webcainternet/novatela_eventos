@@ -62,7 +62,17 @@
 <script src="catalog/view/theme/theme511/js/photo-swipe/code.photoswipe.jquery-3.0.5.js" type="text/javascript"></script>
 <script src="catalog/view/theme/theme511/js/photo-swipe/code.photoswipe-3.0.5.min.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="catalog/view/theme/theme511/js/colorbox/colorbox.css" />
+<script src="catalog/view/theme/theme511/js/colorbox/jquery.colorbox.js"></script>
+
 <script src="catalog/view/theme/theme511/js/script.js" type="text/javascript"></script>
+
+<script type="text/javascript"><!--
+$('.colorbox').colorbox({
+   overlayClose: true,
+   opacity: 0.5
+});
+//--></script>
 
 <!--custom script-->
 <?php foreach ($scripts as $script) { ?>
