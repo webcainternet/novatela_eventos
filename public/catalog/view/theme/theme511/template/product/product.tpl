@@ -623,6 +623,9 @@ function getChar(event) {
 					<!--$('html, body').animate({ scrollTop: 0 }, 'slow');-->
 					
 					$('#cart').load('index.php?route=common/cart/info #cart');
+
+					window.location = "index.php?route=checkout/cart";
+					
 					setTimeout(function() {$('.alert').fadeOut(1000)},3000)
 				}
 			}
