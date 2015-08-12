@@ -23,7 +23,7 @@ $_['text_forgotten']                 = 'Esqueceu sua senha?<br />Clique aqui par
 $_['text_your_details']              = 'Detalhes pessoais';
 $_['text_your_address']              = 'Dados do endereço';
 $_['text_your_password']             = 'Sua senha';
-$_['text_agree']                     = 'Li e concordo com os <a class="colorbox" href="%s" alt="%s"><b>%s</b></a>';
+$_['text_agree']                     = 'Li e concordo com os <a class="colorbox cboxElement" href="%s" alt="%s"><b>%s</b></a>';
 $_['text_address_new']               = 'Quero utilizar um novo endereço.';
 $_['text_address_existing']          = 'Quero utilizar um endereço já cadastrado.';
 $_['text_shipping_method']           = 'Selecione a forma de entrega de sua preferência para este pedido.';
