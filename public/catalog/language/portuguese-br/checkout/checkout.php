@@ -23,7 +23,7 @@ $_['text_forgotten']                 = 'Esqueceu sua senha?<br />Clique aqui par
 $_['text_your_details']              = 'Detalhes pessoais';
 $_['text_your_address']              = 'Dados do endereço';
 $_['text_your_password']             = 'Sua senha';
-$_['text_agree']                     = 'Li e concordo com os <a target="_blank" class="colorbox cboxElement" href="%s" alt="%s"><b>%s</b></a>';
+$_['text_agree']                     = 'Li e concordo com os <a class="colorbox" href="%s" alt="%s"><b>%s</b></a>';
 $_['text_address_new']               = 'Quero utilizar um novo endereço.';
 $_['text_address_existing']          = 'Quero utilizar um endereço já cadastrado.';
 $_['text_shipping_method']           = 'Selecione a forma de entrega de sua preferência para este pedido.';
@@ -59,7 +59,7 @@ $_['entry_fax']                      = 'Fax:';
 $_['entry_address']                  = 'Escolha o endereço';
 $_['entry_company']                  = 'Empresa:';
 $_['entry_customer_group']           = 'Tipo de Conta:';
-$_['entry_address_1']                = 'Endereço, número:';
+$_['entry_address_1']                = 'Endereço:';
 $_['entry_address_2']                = 'Bairro:';
 $_['entry_postcode']                 = 'CEP:';
 $_['entry_city']                     = 'Cidade:';
@@ -73,7 +73,7 @@ $_['error_warning']                  = 'Houve um problema ao tentar processar se
 $_['error_login']                    = 'Atenção: E-mail ou senha não cadastrados em nossa loja.';
 $_['error_approved']                 = 'Atenção: O seu cadastro necessita ser aprovado para que você tenha acesso ao serviços de nossa loja.'; 
 $_['error_exists']                   = 'Atenção: Este e-mail já está cadastrado em nossa loja!';
-$_['error_firstname']                = 'Atenção: O nome deve ter entre 1 e 32 caracteres!';
+$_['error_firstname']                = 'Atenção: O nome deve ter entre 1 e 60 caracteres!';
 $_['error_lastname']                 = 'Atenção: O sobrenome deve ter entre 1 e 32 caracteres!';
 $_['error_email']                    = 'Atenção: O e-mail não é válido!';
 $_['error_telephone']                = 'Atenção: O telefone deve ter entre 3 e 32 caracteres!';

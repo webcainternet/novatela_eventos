@@ -10,7 +10,7 @@ $_['text_your_details']    = 'Detalhes Pessoais';
 $_['text_your_address']    = 'Dados do Endereço';
 $_['text_newsletter']      = 'Informativo da Loja';
 $_['text_your_password']   = 'Senha para Acesso';
-$_['text_agree']           = 'Li e aceito os <a target="_blank" class="colorbox cboxElement" href="%s" alt="%s"><b>%s</b></a>';
+$_['text_agree']           = 'Li e aceito os <a class="colorbox" href="%s" alt="%s"><b>%s</b></a>';
 
 // Entry
 $_['entry_customer_group'] = 'Grupo de Clientes';
@@ -20,7 +20,7 @@ $_['entry_email']          = 'E-mail:';
 $_['entry_telephone']      = 'Telefone:';
 $_['entry_fax']            = 'Fax:';
 $_['entry_company']        = 'Empresa:';
-$_['entry_address_1']      = 'Endereço, número:';
+$_['entry_address_1']      = 'Endereço:';
 $_['entry_address_2']      = 'Bairro:';
 $_['entry_postcode']       = 'CEP:';
 $_['entry_city']           = 'Cidade:';
@@ -32,7 +32,7 @@ $_['entry_confirm']        = 'Repetir Senha:';
 
 // Error
 $_['error_exists']         = 'Atenção: Este e-mail já está cadastrado!';
-$_['error_firstname']      = 'Atenção: O nome deve ter entre 1 e 32 caracteres!';
+$_['error_firstname']      = 'Atenção: O nome deve ter entre 1 e 60 caracteres!';
 $_['error_lastname']       = 'Atenção: O sobrenome deve ter entre 1 e 32 caracteres!';
 $_['error_email']          = 'Atenção: O e-mail não é válido!';
 $_['error_telephone']      = 'Atenção: O telefone deve ter entre 3 e 32 caracteres!';

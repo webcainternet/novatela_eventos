@@ -8,18 +8,15 @@ class ControllerModuleTmFbbox extends Controller {
 		$data['page_url'] = $setting['page_url'];
 		$data['width'] = $setting['width'];
 		$data['height'] = $setting['height'];
-		$data['color_scheme'] = $setting['color_scheme'];
-		$data['show_faces'] = $setting['show_faces'];
-		$data['show_stream'] = $setting['show_stream'];
-		$data['show_header'] = $setting['show_header'];
-		$data['show_border'] = $setting['show_border'];
-		
-		
-		
-		if ($this->config->get('fdu_app_id')){
-			$data['flb_app_id'] = $this->config->get('fdu_app_id');
+		$data['bg'] = $setting['bg'];
+		$data['show_facepile'] = $setting['show_facepile'];
+		$data['show_posts'] = $setting['show_posts'];
+		$data['language'] = $setting['language'];
+
+		if (!empty($setting['app_id'])){
+			$data['app_id'] = $setting['app_id'];
 		} else {
-			$data['flb_app_id'] = false;
+			$data['app_id'] = '';
 		}
 
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/module/tm_fbbox.tpl')) {

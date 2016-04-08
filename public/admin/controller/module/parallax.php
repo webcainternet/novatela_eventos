@@ -104,12 +104,12 @@ class ControllerModuleParallax extends Controller {
 			$data['name'] = '';
 		}
 				
-		if (isset($this->request->post['parallax_id'])) {
-			$data['parallax_id'] = $this->request->post['parallax_id'];
+		if (isset($this->request->post['banner_id'])) {
+			$data['banner_id'] = $this->request->post['banner_id'];
 		} elseif (!empty($module_info)) {
-			$data['parallax_id'] = $module_info['parallax_id'];
+			$data['banner_id'] = $module_info['banner_id'];
 		} else {
-			$data['parallax_id'] = '';
+			$data['banner_id'] = '';
 		}
 		
 		$this->load->model('design/banner');

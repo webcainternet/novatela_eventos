@@ -3,8 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
        <div class="pull-right">
-        <a href="<?php echo $coupon_list; ?>" data-toggle="tooltip" title="Check Current Coupon List" class="btn btn-primary">Coupon List</a>
-        <a href="<?php echo $deleteall; ?>" data-toggle="tooltip" title="<?php echo $button_delete_all; ?>" class="btn btn-danger deleteall"><i class="fa fa-minus"></i></a>
+        <a href="<?php echo $coupon_list; ?>" data-toggle="tooltip" title="Check Current Coupon List" class="btn btn-primary">Back To Coupon List Page</a>
       </div>
       <h1><?php echo $heading_title; ?></h1>
       <ul class="breadcrumb">
@@ -35,6 +34,13 @@
             <div class="panel-body">
 
           <form class="form-horizontal">
+          <div class="form-group">
+           <label class="col-sm-2 control-label" for="input-name1"><span data-toggle="tooltip" title="<?php echo $help_code; ?>">Nome do cupom</span></label>
+          <div class="col-sm-10">
+           <input type="text" placeholder="Enter Name" name="name1" value="" maxlength="20" class="form-control"/>
+          </div>
+        </div>
+
           <div class="form-group">
            <label class="col-sm-2 control-label" for="input-code"><span data-toggle="tooltip" title="<?php echo $help_code; ?>"><?php echo $entry_code; ?></span></label>
           <div class="col-sm-10">
@@ -150,11 +156,29 @@
               <input type="radio" name="imdevcoupon_coupon_logged" value="0" />
               <?php echo $text_no; ?>
               <?php } ?>
-
             </label>
           </div>
         </div>
-
+        <div class="form-group customergroup">
+          <label class="col-sm-2 control-label"><?php echo $entry_customergroup; ?></label>
+          <div class="col-sm-10">
+            <div class="well well-sm" style="height: 150px; overflow: auto;">
+              <?php foreach ($customergroups as $customergroup) { ?>
+              <div class="checkbox">
+                <label>
+                  <?php if (in_array($customergroup['customer_group_id'], $imdevcoupon_customergroup)) { ?>
+                  <input type="checkbox" name="imdevcoupon_customergroup" value="<?php echo $customergroup['customer_group_id']; ?>" checked="checked" />
+                  <?php echo $customergroup['name']; ?>
+                  <?php } else { ?>
+                  <input type="checkbox" name="imdevcoupon_customergroup" value="<?php echo $customergroup['customer_group_id']; ?>" />
+                  <?php echo $customergroup['name']; ?>
+                  <?php } ?>
+                </label>
+              </div>
+              <?php } ?>
+            </div>
+          </div>
+        </div>
         <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-product"><span data-toggle="tooltip" title="<?php echo $help_product; ?>"><?php echo $entry_product; ?></span></label>
                 <div class="col-sm-10">
@@ -185,7 +209,7 @@
                 <label class="col-sm-2 control-label" for="input-date-start"><?php echo $entry_date_start; ?></label>
                 <div class="col-sm-3">
                   <div class="input-group date">
-                    <input type="text" name="sdate" value="<?php echo $imdevcoupon_coupon_sdate; ?>" placeholder="<?php echo $entry_date_start; ?>" data-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
+                    <input type="text" name="sdate" value="<?php echo $imdevcoupon_coupon_sdate; ?>" placeholder="<?php echo $entry_date_start; ?>"data-date-format="YYYY-MM-DD"  id="input-date-start" class="form-control" />
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                     </span></div>
@@ -195,7 +219,7 @@
                 <label class="col-sm-2 control-label" for="input-date-end"><?php echo $entry_date_end; ?></label>
                 <div class="col-sm-3">
                   <div class="input-group date">
-                    <input type="text" name="edate" value="<?php echo $imdevcoupon_coupon_edate; ?>" placeholder="<?php echo $entry_date_end; ?>" data-format="YYYY-MM-DD" id="input-date-end" class="form-control" />
+                    <input type="text" name="edate" value="<?php echo $imdevcoupon_coupon_edate; ?>" placeholder="<?php echo $entry_date_end; ?>" data-date-format="YYYY-MM-DD"  id="input-date-end" class="form-control" />
                     <span class="input-group-btn">
                     <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                     </span></div>
@@ -252,6 +276,7 @@ $('.deleteall').click(function(){
 <script type="text/javascript">
 $('.save').on('click',function(){
   $('.errorn,.errorp').removeClass('warning').html('');
+  var name1 = $('input[name = "name1"]').val();
   var prefix = $('input[name = "prefix"]').val();
   var number = $('input[name = "number"]').val();
   var ctype = $('select[name = "ctype"]').val();
@@ -272,13 +297,18 @@ $('.save').on('click',function(){
   for (var i = 1; i <= temp; i++) {
     pid[i-1] = $('#coupon-product div:nth-child('+i+')').attr("class");
   };
+
+var customergroup = $('input[name = "imdevcoupon_customergroup"]:checked').map(function() {
+    return this.value;
+}).get();
+   
   var usetotal = $('input[name = "usetotal"]').val();
   var cuse = $('input[name = "cuse"]').val();
 
  
   $.ajax({
     type: 'post',
-    data: 'prefix=' + prefix + '&number=' + number + '&ctype=' + ctype + '&discount=' + discount + '&shipamount=' + shipamount + '&freeshipping=' + freeshipping + '&logged=' + logged + '&total=' + total + '&sdate=' + sdate + '&edate=' + edate + '&usetotal=' + usetotal + '&cuse=' + cuse + '&ccat=' + ccat  + '&pid=' + pid,
+    data: 'name1=' + name1 + '&prefix=' + prefix + '&number=' + number + '&ctype=' + ctype + '&discount=' + discount + '&shipamount=' + shipamount + '&freeshipping=' + freeshipping + '&logged=' + logged + '&customergroup=' + customergroup + '&total=' + total + '&sdate=' + sdate + '&edate=' + edate + '&usetotal=' + usetotal + '&cuse=' + cuse + '&ccat=' + ccat  + '&pid=' + pid,
   url: 'index.php?route=sale/coupon/setting&token=<?php echo $token; ?>',
   dataType: 'json',
   success: function(data) {

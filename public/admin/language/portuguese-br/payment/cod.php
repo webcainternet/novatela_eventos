@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']                 = 'Pagamento na Entrega';
+$_['heading_title']                 = 'Cortesia';
 
 // Text
 $_['text_payment']                  = 'Formas de Pagamento';
-$_['text_success']                  = 'Módulo Pagamento na Entrega modificado com sucesso!';
-$_['text_edit']                     = 'Editar Módulo Pagamento na Entrega';
+$_['text_success']                  = 'Módulo Cortesia modificado com sucesso!';
+$_['text_edit']                     = 'Editar Módulo Cortesia';
 
 // Entry
 $_['entry_total']					= 'Total Mínimo';
@@ -18,4 +18,4 @@ $_['entry_sort_order']              = 'Ordem:';
 $_['help_total']					= 'O check-out total de pedido deve chegar antes de este método de pagamento se tornar ativa.';
 
 // Error
-$_['error_permission']				= 'Atenção: Você não possui permissão para modificar o módulo Pagamento na Entrega!';
+$_['error_permission']				= 'Atenção: Você não possui permissão para modificar o módulo Cortesia!';

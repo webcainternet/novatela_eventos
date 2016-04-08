@@ -138,7 +138,14 @@
                     <span class="label label-success"><?php echo $product['quantity']; ?></span>
                     <?php } ?></td>
                   <td class="text-left"><?php echo $product['status']; ?></td>
-                  <td class="text-right"><a href="<?php echo $product['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                  <td class="text-right" style="width: 150px;">
+                    <a href="<?php echo $product['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+
+                    <a href="/admin/LISTAALUNOS.php?product_id=<?php echo $product['product_id']; ?>" target="_blank" data-toggle="tooltip" title="Ver inscritos" class="btn btn-info"><i class="fa fa-eye"></i></a>
+
+                     <a href="/admin/RELATORIOINSCRITOS.php?product_id=<?php echo $product['product_id']; ?>" target="_blank" data-toggle="tooltip" title="Ver relatório" class="btn btn-info"><i class="fa fa-tasks"></i></a>
+                    
+                  </td>
                 </tr>
                 <?php } ?>
                 <?php } else { ?>

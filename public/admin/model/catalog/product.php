@@ -287,7 +287,6 @@ class ModelCatalogProduct extends Model {
 			$data = $query->row;
 
 			$data['sku'] = '';
-			$data['upc'] = '';
 			$data['viewed'] = '0';
 			$data['keyword'] = '';
 			$data['status'] = '0';

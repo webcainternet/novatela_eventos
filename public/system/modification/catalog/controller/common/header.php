@@ -19,6 +19,9 @@ class ControllerCommonHeader extends Controller {
 		$data['direction'] = $this->language->get('direction');
 		$data['google_analytics'] = html_entity_decode($this->config->get('config_google_analytics'), ENT_QUOTES, 'UTF-8');
 		$data['name'] = $this->config->get('config_name');
+
+			$data['theme_path'] = $this->config->get('config_template');
+			
  
 			$data['maintenance'] = $this->config->get('config_maintenance');
 			
@@ -35,6 +38,7 @@ class ControllerCommonHeader extends Controller {
 			$data['logo'] = '';
 		}
 
+		$this->load->model('catalog/information');
  
 			if (($data['maintenance']==0)) {
 			$data['informations'] = array();
@@ -49,9 +53,6 @@ class ControllerCommonHeader extends Controller {
 		}
 			
 		$this->load->language('common/header');
- 
-			$data['column_left'] = $this->load->controller('common/column_left');
-			$data['column_right'] = $this->load->controller('common/column_right'); 
 
 		$data['text_home'] = $this->language->get('text_home');
 		$data['text_wishlist'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
@@ -85,8 +86,7 @@ class ControllerCommonHeader extends Controller {
 			$data['text_order'] = $this->language->get('text_order');
 			$data['text_newsletter'] = $this->language->get('text_newsletter');
 			$data['text_category'] = $this->language->get('text_category');
-			$data['text_login1'] = $this->language->get('text_login1');
-			$data['text_register1'] = $this->language->get('text_register1');
+			
 			
 		$data['text_all'] = $this->language->get('text_all');
 
@@ -173,12 +173,16 @@ class ControllerCommonHeader extends Controller {
 
 
 			$this->load->model('design/topmenu');
-			$data['categories'] = $this->model_design_topmenu->getMenu();
+			$data['categories_tm'] = $this->model_design_topmenu->getMenu();
 			
 		$data['language'] = $this->load->controller('common/language');
 		$data['currency'] = $this->load->controller('common/currency');
 		$data['search'] = $this->load->controller('common/search');
 		$data['cart'] = $this->load->controller('common/cart');
+ 
+					$data['tm_login'] = $this->load->controller('module/tm_header_login');
+					$data['tm_social_list'] = $this->load->controller('module/tm_social_list');
+			
 
 		// For page specific css
 		if (isset($this->request->get['route'])) {

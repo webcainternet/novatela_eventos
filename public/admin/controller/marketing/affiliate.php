@@ -392,7 +392,7 @@ class ControllerMarketingAffiliate extends Controller {
 		$results = $this->model_marketing_affiliate->getAffiliates($filter_data);
 
 		foreach ($results as $result) {
-			if ($result['approved']) {
+			if (!$result['approved']) {
 				$approve = $this->url->link('marketing/affiliate/approve', 'token=' . $this->session->data['token'] . '&affiliate_id=' . $result['affiliate_id'] . $url, 'SSL');
 			} else {
 				$approve = '';
@@ -632,7 +632,7 @@ class ControllerMarketingAffiliate extends Controller {
 		}
 
 		if (isset($this->error['lastname'])) {
-			$data['error_lastname'] = $this->error['lastname'];
+			$data['error_lastname'] = '';
 		} else {
 			$data['error_lastname'] = '';
 		}
@@ -1015,11 +1015,11 @@ class ControllerMarketingAffiliate extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 32)) {
+		if ((utf8_strlen(trim($this->request->post['firstname'])) < 1) || (utf8_strlen(trim($this->request->post['firstname'])) > 60)) {
 			$this->error['firstname'] = $this->language->get('error_firstname');
 		}
 
-		if ((utf8_strlen(trim($this->request->post['lastname'])) < 1) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
+		if ((utf8_strlen(trim($this->request->post['lastname'])) > 100) || (utf8_strlen(trim($this->request->post['lastname'])) > 32)) {
 			$this->error['lastname'] = $this->language->get('error_lastname');
 		}
 

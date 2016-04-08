@@ -4,4 +4,4 @@ $_['heading_title'] = 'Informações';
 
 // Text
 $_['text_contact']  = 'Contate-nos';
-$_['text_sitemap']  = 'Mapa da Loja';
+$_['text_sitemap']  = 'Mapa do Site';

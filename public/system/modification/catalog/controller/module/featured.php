@@ -1,5 +1,13 @@
 <?php
 class ControllerModuleFeatured extends Controller {
+
+			var $is_mod_rastreio = false;
+			public function init($setting)
+			{
+				$this->is_mod_rastreio = true;
+				return $this->index($setting);
+			}
+			
 	public function index($setting) {
 		$this->load->language('module/featured');
 
@@ -13,6 +21,9 @@ class ControllerModuleFeatured extends Controller {
 				$data['text_price'] = $this->language->get('text_price');
 				$data['button_wishlist'] = $this->language->get('button_wishlist');
 				$data['button_compare'] = $this->language->get('button_compare');	
+
+			$data['text_sale'] = $this->language->get('text_sale');
+			
 				$data['button_details'] = $this->language->get('button_details');
 				$data['text_manufacturer'] = $this->language->get('text_manufacturer');
 				$data['text_category'] = $this->language->get('text_category');
@@ -46,7 +57,21 @@ class ControllerModuleFeatured extends Controller {
 			$setting['limit'] = 4;
 		}
 
-		$products = array_slice($setting['product'], 0, (int)$setting['limit']);
+		
+			$products = array();
+			if($this->is_mod_rastreio)
+			{
+				$mod_rastreio = $this->config->get('mod_rastreio');
+				if(isset($mod_rastreio['products']['featured_product']['status']) && $mod_rastreio['products']['featured_product']['status'])
+				{
+					$products = explode(',', $mod_rastreio['products']['featured_product']['products']);
+				}
+			}
+			else
+			{
+				$products = array_slice($setting['product'], 0, (int)$setting['limit']);
+			}
+			
 
 		foreach ($products as $product_id) {
 			$product_info = $this->model_catalog_product->getProduct($product_id);
@@ -85,9 +110,18 @@ class ControllerModuleFeatured extends Controller {
 					$rating = false;
 				}
 
+
+					$desc = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+				$quick_descr_start = strpos($desc,'</iframe>')+9;
+				$quick_descr = substr($desc, $quick_descr_start);
+				
 				$data['products'][] = array(
 					'product_id'  => $product_info['product_id'],
 					'thumb'       => $image,
+ 
+				'img-width'       => $setting['width'],
+				'img-height'       => $setting['height'],
+				
 					'name'        => $product_info['name'],
 					'description' => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get('config_product_description_length')) . '..',
 					'price'       => $price,
@@ -97,7 +131,7 @@ class ControllerModuleFeatured extends Controller {
  
 					'reviews'    => $review_total,
 					'author'     => $product_info['manufacturer'],
-					'description1' => html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8'),
+					'description1' => $quick_descr,
 					'manufacturers' =>$data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $product_info['manufacturer_id']),
 					'model' => $product_info['model'],
 					'text_availability' => $product_info['quantity'],

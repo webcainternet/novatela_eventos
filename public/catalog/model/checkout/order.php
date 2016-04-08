@@ -472,6 +472,105 @@ class ModelCheckoutOrder extends Model {
 					$format = '{firstname} {lastname}' . "\n" . '{company}' . "\n" . '{address_1}' . "\n" . '{address_2}' . "\n" . '{city} {postcode}' . "\n" . '{zone}' . "\n" . '{country}';
 				}
 
+				//Coleta custom fields
+				$mysqli = new mysqli(DB_HOSTNAME, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+				if (mysqli_connect_errno()) { printf("Connect failed: %s\n", mysqli_connect_error()); exit(); }
+
+				//Consulta
+				$sql = "SELECT payment_custom_field, shipping_custom_field FROM oc_order WHERE order_id = ".$data['order_id'];
+				if ($result = $mysqli->query($sql)) { 
+					$row_cnt = $result->num_rows;
+					if ($row_cnt > 0) {
+				        while($obj = $result->fetch_object()){
+				        	$endereco2b = '';
+							$endereco3b = '';
+							$endereco4b = '';
+							$endereco5b = '';
+
+				        	//Numero
+				            $texto = $obj->payment_custom_field;
+							$first = strpos($texto, 'i:4;s');
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$first = strpos($texto, '"')+1;
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$last = strpos($texto, '"');
+							$texto = substr($texto, 0, $last);
+
+							$endereco2 = $texto;
+							$endereco2b = trim(mb_strtoupper(utf8_encode($endereco2), 'UTF-8'));
+
+							if ($endereco2b != '') {
+								$endereco2b = ', ' . $endereco2b;
+							}
+
+							//Complemento
+				            $texto = $obj->payment_custom_field;
+							$first = strpos($texto, 'i:7;s');
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$first = strpos($texto, '"')+1;
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$last = strpos($texto, '"');
+							$texto = substr($texto, 0, $last);
+
+							$endereco3 = $texto;
+							$endereco3b = trim(mb_strtoupper(utf8_encode($endereco3), 'UTF-8'));
+							
+							if ($endereco3b != '') {
+								$endereco3b = ', ' . $endereco3b;
+							}
+
+							//Numero - shipping
+				            $texto = $obj->shipping_custom_field;
+							$first = strpos($texto, 'i:4;s');
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$first = strpos($texto, '"')+1;
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$last = strpos($texto, '"');
+							$texto = substr($texto, 0, $last);
+
+							$endereco4 = $texto;
+							$endereco4b = trim(mb_strtoupper(utf8_encode($endereco4), 'UTF-8'));
+
+							if ($endereco4b != '') {
+								$endereco4b = ', ' . $endereco4b;
+							}
+
+							//Complemento - shipping
+				            $texto = $obj->shipping_custom_field;
+							$first = strpos($texto, 'i:7;s');
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$first = strpos($texto, '"')+1;
+							$second = strlen($texto);
+							$texto = substr($texto, $first, $second - $first);
+
+							$last = strpos($texto, '"');
+							$texto = substr($texto, 0, $last);
+
+							$endereco5 = $texto;
+							$endereco5b = trim(mb_strtoupper(utf8_encode($endereco5), 'UTF-8'));
+							
+							if ($endereco5b != '') {
+								$endereco5b = ', ' . $endereco5b;
+							}
+						}
+					}
+				}
+
+
 				$find = array(
 					'{firstname}',
 					'{lastname}',
@@ -489,7 +588,7 @@ class ModelCheckoutOrder extends Model {
 					'firstname' => $order_info['payment_firstname'],
 					'lastname'  => $order_info['payment_lastname'],
 					'company'   => $order_info['payment_company'],
-					'address_1' => $order_info['payment_address_1'],
+					'address_1' => $order_info['payment_address_1'] . $endereco2b . $endereco3b,
 					'address_2' => $order_info['payment_address_2'],
 					'city'      => $order_info['payment_city'],
 					'postcode'  => $order_info['payment_postcode'],
@@ -523,7 +622,7 @@ class ModelCheckoutOrder extends Model {
 					'firstname' => $order_info['shipping_firstname'],
 					'lastname'  => $order_info['shipping_lastname'],
 					'company'   => $order_info['shipping_company'],
-					'address_1' => $order_info['shipping_address_1'],
+					'address_1' => $order_info['shipping_address_1'] . $endereco4b . $endereco5b,
 					'address_2' => $order_info['shipping_address_2'],
 					'city'      => $order_info['shipping_city'],
 					'postcode'  => $order_info['shipping_postcode'],

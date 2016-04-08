@@ -16,7 +16,7 @@ $_['text_login']       = 'Необходимо <a href="%s">авторизиро
 
  
 			$_['text_items2']    = '%s';
-			$_['text_shopping_cart']    = 'Shopping Cart:';
+			$_['text_shopping_cart']    = 'Cart:';
 				
 $_['text_items']       = 'Товаров %s  (%s)';
 

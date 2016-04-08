@@ -18,7 +18,7 @@ $_['text_date_added']    = 'Adicionada em:';
 $_['text_comment']       = 'Comentários da Devolução';
 $_['text_history']       = 'Histórico da Devolução';
 $_['text_empty']         = 'Você ainda não fez nenhuma solicitação de devolução!';
-$_['text_agree']         = 'Eu li e concordo com os <a target="_blank" class="colorbox cboxElement" href="%s" alt="%s"><b>%s</b></a>';
+$_['text_agree']         = 'Eu li e concordo com os <a class="colorbox" href="%s" alt="%s"><b>%s</b></a>';
 
 // Column
 $_['column_return_id']   = 'Devolução ID';

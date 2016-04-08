@@ -25,8 +25,8 @@ $_['button_back']           = 'Voltar';
 $_['button_continue']       = 'Continuar';
 $_['button_cart']           = 'Comprar';
 $_['button_cancel']         = 'Cancelar';
-$_['button_compare']        = '+ lista de Comparação';
-$_['button_wishlist']       = '+ lista de Desejos';
+$_['button_compare']        = 'Adicionar para Lista de Comparação';
+$_['button_wishlist']       = 'Adicionar para Lista de Desejos';
 $_['button_checkout']       = 'Finalizar';
 $_['button_confirm']        = 'Confirmar Pedido';
 $_['button_coupon']         = 'Aplicar Cupom';
@@ -67,5 +67,3 @@ $_['error_upload_6']        = 'Atenção: Missing a temporary folder!';
 $_['error_upload_7']        = 'Atenção: Failed to write file to disk!';
 $_['error_upload_8']        = 'Atenção: File upload stopped by extension!';
 $_['error_upload_999']      = 'Atenção: No error code available!';
-
-$_['button_shopping']       = 'Continuar comprando';

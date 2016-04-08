@@ -8,7 +8,7 @@ $_['text_remove']            = 'Você modificou seu carrinho de compras!';
 $_['text_login']             = 'Atenção: Acesse sua <a href="%s">conta</a> ou <a href="%s">cadastre-se</a> para visualizar os preços!';
  
 			$_['text_items2']    = '%s';
-			$_['text_shopping_cart']    = 'Shopping Cart:';
+			$_['text_shopping_cart']    = 'Cart:';
 				
 $_['text_items']             = '%s item(ns) - %s';
 $_['text_points']            = 'Pontos de fidelidade: %s';
@@ -39,7 +39,7 @@ $_['column_price']           = 'Unitário';
 $_['column_total']           = 'Total';
 
 // Error
-$_['error_stock']            = 'Produtos marcados com *** não estão disponíveis na quantia desejada ou não encontram-se Inscrições abertas!';
+$_['error_stock']            = 'Produtos marcados com *** não estão disponíveis na quantia desejada ou não encontram-se em estoque!';
 $_['error_minimum']          = 'A quantidade mínima para %s é %s!';	
 $_['error_required']         = '%s é obrigatório!';
 $_['error_product']          = 'Atenção: Não há produtos em seu carrinho!';	

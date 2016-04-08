@@ -28,3 +28,4 @@ define('DB_USERNAME', 'novatelaeventos');
 define('DB_PASSWORD', 'uqwf3S36dg');
 define('DB_DATABASE', 'novatelaeventos');
 define('DB_PREFIX', 'oc_');
+

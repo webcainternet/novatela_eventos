@@ -3,6 +3,9 @@ class ControllerCommonFooter extends Controller {
 	public function index() {
 		$this->load->language('common/footer');
 
+			$data['theme_path'] = $this->config->get('config_template');
+			
+
 
 			$data['maintenance'] = $this->config->get('config_maintenance');
 			
@@ -54,14 +57,17 @@ class ControllerCommonFooter extends Controller {
 		$data['order'] = $this->url->link('account/order', '', 'SSL');
 		$data['wishlist'] = $this->url->link('account/wishlist', '', 'SSL');
 		$data['newsletter'] = $this->url->link('account/newsletter', '', 'SSL');
+
+			$data['footer_top'] = $this->load->controller('common/footer_top');
+			
+ 
+					$data['tm_social_list'] = $this->load->controller('module/tm_social_list');
+			
  
 			$data['address'] = nl2br($this->config->get('config_address'));
 			$data['telephone'] = $this->config->get('config_telephone');
 			$data['fax'] = $this->config->get('config_fax');
 			
-			
-
-			$data['footer_top'] = $this->load->controller('common/footer_top');
 			
 
 		$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));

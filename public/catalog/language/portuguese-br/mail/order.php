@@ -1,14 +1,14 @@
 <?php
 // Text
-$_['text_new_subject']          = 'Inscrição Recebida';
-$_['text_new_greeting']         = 'Obrigado. Inscrição recebida com sucesso.';
+$_['text_new_subject']          = '%s - Pedido %s';
+$_['text_new_greeting']         = 'Obrigado por se interessar nos produtos da loja %s.';
 $_['text_new_received']         = 'Você recebeu um pedido.';
-$_['text_new_link']             = 'Para acompanhar sua inscrição, clique no link abaixo:';
-$_['text_new_order_detail']     = 'Detalhes da Incrição';
+$_['text_new_link']             = 'Para acompanhar o andamento do seu pedido, clique no link abaixo:';
+$_['text_new_order_detail']     = 'Detalhes do Pedido';
 $_['text_new_instruction']      = 'Instruções';
-$_['text_new_order_id']         = 'Inscrição Nº:';
-$_['text_new_date_added']       = 'Data da Inscrição:';
-$_['text_new_order_status']     = 'Situação da Inscrição:';
+$_['text_new_order_id']         = 'Pedido Nº:';
+$_['text_new_date_added']       = 'Data do Pedido:';
+$_['text_new_order_status']     = 'Situação do Pedido:';
 $_['text_new_payment_method']   = 'Método de Pagamento:';
 $_['text_new_shipping_method']  = 'Método de Envio:';
 $_['text_new_email']  			= 'E-mail:';

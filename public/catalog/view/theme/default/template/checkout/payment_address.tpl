@@ -24,19 +24,19 @@
   <?php } ?>
   <br />
   <div id="payment-new" style="display: <?php echo ($addresses ? 'none' : 'block'); ?>;">
-    <div class="form-group required">
+    <div class="form-group required camponome">
       <label class="col-sm-2 control-label" for="input-payment-firstname"><?php echo $entry_firstname; ?></label>
       <div class="col-sm-10">
         <input type="text" name="firstname" value="" placeholder="<?php echo $entry_firstname; ?>" id="input-payment-firstname" class="form-control" />
       </div>
     </div>
-    <div class="form-group required">
+    <div class="form-group camposobrenome">
       <label class="col-sm-2 control-label" for="input-payment-lastname"><?php echo $entry_lastname; ?></label>
       <div class="col-sm-10">
         <input type="text" name="lastname" value="" placeholder="<?php echo $entry_lastname; ?>" id="input-payment-lastname" class="form-control" />
       </div>
     </div>
-    <div class="form-group">
+    <div class="form-group campoempresa">
       <label class="col-sm-2 control-label" for="input-payment-company"><?php echo $entry_company; ?></label>
       <div class="col-sm-10">
         <input type="text" name="company" value="" placeholder="<?php echo $entry_company; ?>" id="input-payment-company" class="form-control" />
@@ -63,10 +63,10 @@
     <div class="form-group required">
       <label class="col-sm-2 control-label" for="input-payment-postcode"><?php echo $entry_postcode; ?></label>
       <div class="col-sm-10">
-        <input type="text" name="postcode" value="" placeholder="<?php echo $entry_postcode; ?>" id="input-payment-postcode" class="form-control" />
+        <input type="text" name="postcode" value="" placeholder="<?php echo $entry_postcode; ?>" id="input-payment-postcode" autocomplete="off" class="form-control" />
       </div>
     </div>
-    <div class="form-group required">
+    <div class="form-group required campopais">
       <label class="col-sm-2 control-label" for="input-payment-country"><?php echo $entry_country; ?></label>
       <div class="col-sm-10">
         <select name="country_id" id="input-payment-country" class="form-control">

@@ -32,6 +32,7 @@ class ControllerCommonHeader extends Controller {
 			$data['logo'] = '';
 		}
 
+		$this->load->model('catalog/information');
 		$this->load->language('common/header');
 
 		$data['text_home'] = $this->language->get('text_home');

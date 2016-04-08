@@ -30,24 +30,22 @@ class ControllerModuleTmFbbox extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 
 		$data['entry_name'] = $this->language->get('entry_name');
-		$data['entry_limit'] = $this->language->get('entry_limit');
-		$data['entry_image'] = $this->language->get('entry_image');
 		$data['entry_width'] = $this->language->get('entry_width');
 		$data['entry_height'] = $this->language->get('entry_height');
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['text_yes'] = $this->language->get('text_yes');
 		$data['text_no'] = $this->language->get('text_no');
-		$data['text_color_scheme_light'] = $this->language->get('text_color_scheme_light');
-		$data['text_color_scheme_dark']  = $this->language->get('text_color_scheme_dark');
 		$data['text_preview']            = $this->language->get('text_preview');
-		
+		$data['text_english']            = $this->language->get('text_english');
+		$data['text_german']            = $this->language->get('text_german');
+		$data['text_russian']            = $this->language->get('text_russian');
+
 		$data['entry_page_url']        = $this->language->get('entry_page_url');
-		$data['entry_dimension']       = $this->language->get('entry_dimension');
-        $data['entry_color_scheme']    = $this->language->get('entry_color_scheme');
-        $data['entry_faces']   		 = $this->language->get('entry_faces');
-        $data['entry_stream'] 		 = $this->language->get('entry_stream');
-        $data['entry_header'] 		 = $this->language->get('entry_header');
-		$data['entry_border']    = $this->language->get('entry_border');
+		$data['entry_app_id']        = $this->language->get('entry_app_id');
+        $data['entry_show_facepile']   		 = $this->language->get('entry_show_facepile');
+        $data['entry_bg'] 		 = $this->language->get('entry_bg');
+		$data['entry_show_posts']    = $this->language->get('entry_show_posts');
+		$data['entry_language']    = $this->language->get('entry_language');
 
 
 		$data['button_save'] = $this->language->get('button_save');
@@ -72,11 +70,19 @@ class ControllerModuleTmFbbox extends Controller {
 		} else {
 			$data['error_width'] = '';
 		}
+
 		if (isset($this->error['page_url'])) {
 			$data['error_page_url'] = $this->error['page_url'];
 		} else {
 			$data['error_page_url'] = '';
 		}
+
+
+        if (isset($this->error['app_id'])) {
+            $data['error_app_id'] = $this->error['app_id'];
+        } else {
+            $data['error_app_id'] = '';
+        }
 		
 		if (isset($this->error['height'])) {
 			$data['error_height'] = $this->error['height'];
@@ -135,42 +141,35 @@ class ControllerModuleTmFbbox extends Controller {
 		} else {
 			$data['page_url'] = '';
 		}
-		if (isset($this->request->post['color_scheme'])) {
-			$data['color_scheme'] = $this->request->post['color_scheme'];
-		} elseif (!empty($module_info)) {
-			$data['color_scheme'] = $module_info['color_scheme'];
-		} else {
-			$data['color_scheme'] = '';
-		}
-		if (isset($this->request->post['show_faces'])) {
-			$data['show_faces'] = $this->request->post['show_faces'];
-		} elseif (!empty($module_info)) {
-			$data['show_faces'] = $module_info['show_faces'];
-		} else {
-			$data['show_faces'] = '';
-		}
-		if (isset($this->request->post['show_stream'])) {
-			$data['show_stream'] = $this->request->post['show_stream'];
-		} elseif (!empty($module_info)) {
-			$data['show_stream'] = $module_info['show_stream'];
-		} else {
-			$data['show_stream'] = '';
-		}
-		if (isset($this->request->post['show_header'])) {
-			$data['show_header'] = $this->request->post['show_header'];
-		} elseif (!empty($module_info)) {
-			$data['show_header'] = $module_info['show_header'];
-		} else {
-			$data['show_header'] = '';
-		}
-		if (isset($this->request->post['show_border'])) {
-			$data['show_border'] = $this->request->post['show_border'];
-		} elseif (!empty($module_info)) {
-			$data['show_border'] = $module_info['show_border'];
-		} else {
-			$data['show_border'] = '';
-		}
 
+		if (isset($this->request->post['app_id'])) {
+			$data['app_id'] = $this->request->post['app_id'];
+		} elseif (!empty($module_info)) {
+			$data['app_id'] = $module_info['app_id'];
+		} else {
+			$data['app_id'] = '';
+		}
+		if (isset($this->request->post['show_facepile'])) {
+			$data['show_facepile'] = $this->request->post['show_facepile'];
+		} elseif (!empty($module_info)) {
+			$data['show_facepile'] = $module_info['show_facepile'];
+		} else {
+			$data['show_facepile'] = '';
+		}
+		if (isset($this->request->post['bg'])) {
+			$data['bg'] = $this->request->post['bg'];
+		} elseif (!empty($module_info)) {
+			$data['bg'] = $module_info['bg'];
+		} else {
+			$data['bg'] = '';
+		}
+		if (isset($this->request->post['show_posts'])) {
+			$data['show_posts'] = $this->request->post['show_posts'];
+		} elseif (!empty($module_info)) {
+			$data['show_posts'] = $module_info['show_posts'];
+		} else {
+			$data['show_posts'] = '';
+		}
 		if (isset($this->request->post['width'])) {
 			$data['width'] = $this->request->post['width'];
 		} elseif (!empty($module_info)) {
@@ -185,6 +184,13 @@ class ControllerModuleTmFbbox extends Controller {
 			$data['height'] = $module_info['height'];
 		} else {
 			$data['height'] = 200;
+		}
+		if (isset($this->request->post['language'])) {
+			$data['language'] = $this->request->post['language'];
+		} elseif (!empty($module_info)) {
+			$data['language'] = $module_info['language'];
+		} else {
+			$data['language'] = '';
 		}
 		
 		if (isset($this->request->post['status'])) {
@@ -206,11 +212,13 @@ class ControllerModuleTmFbbox extends Controller {
 		if (!$this->user->hasPermission('modify', 'module/tm_fbbox')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
-		
-		
-		
+
 		if (!$this->request->post['width']) {
 			$this->error['width'] = $this->language->get('error_width');
+		}
+
+		if (empty($this->request->post['page_url'])) {
+			$this->error['page_url'] = $this->language->get('error_page_url');
 		}
 		
 		if (!$this->request->post['height']) {

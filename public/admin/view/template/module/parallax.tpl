@@ -37,7 +37,7 @@
 		  <div class="form-group">
 			<label class="col-sm-2 control-label" for="input-parallax"><?php echo $entry_parallax; ?></label>
 			<div class="col-sm-10">
-			  <select name="parallax_id" id="input-parallax" class="form-control">
+			  <select name="banner_id" id="input-parallax" class="form-control">
 				<?php foreach ($banners as $banner) { ?>
 				<?php if ($banner['banner_id'] == $banner_id) { ?>
 				<option value="<?php echo $banner['banner_id']; ?>" selected="selected"><?php echo $banner['name']; ?></option>

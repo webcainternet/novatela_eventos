@@ -30,11 +30,21 @@
             <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
             <?php echo $image['name']; ?></label>
           <?php } ?>
-          <?php if ($image['type'] == 'image') { ?>
-          <a href="<?php echo $image['href']; ?>" class="thumbnail"><img src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>" title="<?php echo $image['name']; ?>" /></a>
+
+          <?php if (strtoupper(substr($image['thumb'], -4)) == '.TXT') { ?>
+          <div class="text-center"><a href="<?php echo $image['href']; ?>" class="directory" style="vertical-align: middle;"></a>
+          <a href="#" class="thumbnail"><img src="/image/ico-txt.png" /></a>
+          </div>
           <label>
             <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
             <?php echo $image['name']; ?></label>
+          <?php } else { ?>
+	          <?php if ($image['type'] == 'image') { ?>
+	          <a href="<?php echo $image['href']; ?>" class="thumbnail"><img src="<?php echo $image['thumb']; ?>" alt="<?php echo $image['name']; ?>" title="<?php echo $image['name']; ?>" /></a>
+	          <label>
+	            <input type="checkbox" name="path[]" value="<?php echo $image['path']; ?>" />
+	            <?php echo $image['name']; ?></label>
+	          <?php } ?>
           <?php } ?>
         </div>
         <?php } ?>

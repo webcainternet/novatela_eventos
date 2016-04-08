@@ -8,15 +8,11 @@ class ControllerModuleParallax extends Controller {
 
 		
 		$this->document->addScript('catalog/view/javascript/parallax/cherry-fixed-parallax.js');
-		$this->document->addScript('catalog/view/javascript/parallax/device.min.js');
 		$this->document->addStyle('catalog/view/javascript/parallax/css/parallax.css');
-		
-
-		
 
 		$data['banners'] = array();
 
-		$results = $this->model_design_banner->getBanner($setting['parallax_id']);
+		$results = $this->model_design_banner->getBanner($setting['banner_id']);
 
 		foreach ($results as $result) {
 			if (is_file(DIR_IMAGE . $result['image'])) {

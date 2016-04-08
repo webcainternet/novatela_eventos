@@ -1,0 +1,130 @@
+<modification>
+	<id>Coupon Import</id>
+	<version>1.0.0</version>
+	<vqmver>2.4.2</vqmver>
+	<author>Imdevlper</author>
+	<file name="admin/controller/marketing/coupon.php">
+		<operation error="log">
+			<search position="before"><![CDATA[$data['button_delete']]]>
+			</search>
+			<add><![CDATA[$data['import'] = $this->url->link('sale/coupon', 'token=' . $this->session->data['token'], 'SSL');]]></add>
+		</operation>
+		<!-- <operation error="log">
+			<search position="before"><![CDATA[if (isset($this->request->post['shipping']))]]>
+			</search>
+			<add><![CDATA[if (isset($this->request->post['shipping_amount'])) {
+			$data['shipping_amount'] = $this->request->post['shipping_amount'];
+		} elseif (!empty($coupon_info)) {
+			$data['shipping_amount'] = $coupon_info['shipping_amount'];
+		} else {
+			$data['shipping_amount'] = '';
+		}]]></add>
+		</operation> -->
+	</file>
+	<!-- <file name="admin/model/marketing/coupon.php">
+		<operation error="log">
+			<search position="iafter"><![CDATA[shipping = '" . (int)$data['shipping'] . "',]]>
+			</search>
+			<add><![CDATA[shipping_amount = '" . (int)$data['shipping_amount'] . "',]]></add>
+		</operation>
+		<operation error="log">
+			<search position="iafter"><![CDATA[public function getCoupons($data = array()) {]]>
+			</search>
+			<add><![CDATA[$sql = "SHOW COLUMNS FROM `" . DB_PREFIX . "coupon` LIKE  'shipping_amount'";
+		 $result = $this->db->query($sql)->num_rows;
+	       if(!$result) {
+	      	 $this->db->query("ALTER TABLE  `". DB_PREFIX ."coupon` ADD  `shipping_amount` INT( 11 ) NOT NULL AFTER  `code`");
+	       	 $this->db->query("UPDATE  `" . DB_PREFIX . "coupon` SET `shipping_amount` = 0 ");
+	       }]]></add>
+		</operation>
+		
+	</file> -->
+	<file name="admin/view/template/marketing/coupon_list.tpl">
+		<operation error="log">
+			<search position="iafter"><![CDATA[<div class="pull-right">]]>
+			</search>
+<add><![CDATA[<a href="<?php echo $import; ?>" data-toggle="tooltip" title="Import Bulk Coupons" class="btn btn-primary">Import Coupon</a> ]]></add>
+		</operation>
+	</file>
+<!--	<file name="admin/view/template/marketing/coupon_form.tpl">
+		<operation error="log">
+			<search position="before" index="5"><![CDATA[<div class="form-group">]]>
+			</search>
+<add><![CDATA[
+	<div class="form-group">
+          <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="Also add shipping amount when calculating coupon">Shipping Applied</span>
+             <i  data-toggle="tooltip" title="New Feature"  class="fa fa-star"></i>
+          </label>
+
+          <div class="col-sm-10">
+            <label class="radio-inline">
+              <?php if ($shipping_amount) { ?>
+              <input type="radio" name="shipping_amount" value="1" checked="checked" />
+              <?php echo $text_yes; ?>
+              <?php } else { ?>
+              <input type="radio" name="shipping_amount" value="1" />
+              <?php echo $text_yes; ?>
+              <?php } ?>
+            </label>
+            <label class="radio-inline">
+              <?php if (!$shipping_amount) { ?>
+              <input type="radio" name="shipping_amount" value="0" checked="checked" />
+              <?php echo $text_no; ?>
+              <?php } else { ?>
+              <input type="radio" name="shipping_amount" value="0" />
+              <?php echo $text_no; ?>
+              <?php } ?>
+
+            </label>
+          </div>
+      </div>
+	]]></add>
+		</operation>
+	</file>
+ 	<file name="catalog/model/total/coupon.php">
+		<operation error="log">
+			<search position="before"><![CDATA[
+				if ($coupon_info['shipping'] && isset($this->session->data['shipping_method'])) {
+				]]>
+			</search>
+			<add>
+				<![CDATA[
+				if($coupon_info['shipping_amount'] && $coupon_info['type'] == 'P'  && isset($this->session->data['shipping_method'])){
+				$discount_total += $this->session->data['shipping_method']['cost'] / 100 * $coupon_info['discount'];				
+				}
+				
+				if($coupon_info['shipping_amount'] && $coupon_info['type'] == 'F'  && isset($this->session->data['shipping_method'])){
+
+					$discount_total += $coupon_info['discount'] * ($this->session->data['shipping_method']['cost']/ $sub_total);		
+				}
+				]]>
+			</add>
+		</operation>
+		<operation error="log">
+			<search position="before" index="1"><![CDATA[
+				if ($coupon_info['type'] == 'F') {
+				]]>
+			</search>
+			<add>
+				<![CDATA[
+				if($coupon_info['shipping_amount'] && $coupon_info['type'] == 'F'  && isset($this->session->data['shipping_method'])){
+					$sub_total += $this->session->data['shipping_method']['cost'];				
+				}
+				]]>
+			</add>
+		</operation>
+	</file>
+	<file name="catalog/model/checkout/coupon.php">
+		<operation error="log">
+			<search position="after"><![CDATA[
+				$coupon_query->row['code'],
+				]]>
+			</search>
+			<add>
+				<![CDATA[
+				'shipping_amount'          => $coupon_query->row['shipping_amount'],
+				]]>
+			</add>
+		</operation>
+	</file> -->
+</modification>

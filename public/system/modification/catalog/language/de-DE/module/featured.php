@@ -16,6 +16,9 @@
 				$_['text_instock'] = 'In Stock';
 				$_['text_outstock'] = 'Out Stock';
 				$_['text_price']        = 'Price: ';
+
+			$_['text_sale']      = 'Verkauf';
+			
 				$_['text_tax']          = 'Ex Tax:';
 				$_['text_quick']          = 'Quick View'; 
 				$_['button_details']          = 'Details';
@@ -37,6 +40,9 @@ $_['text_tax']		= 'ohne Steuer';
 				$_['text_instock'] = 'Vorratig';
 				$_['text_outstock'] = 'Heraus ';
 				$_['text_price']        = 'Preis: ';
+
+			$_['text_sale']      = 'Verkauf';
+			
 				$_['text_tax']          = 'Preis ohne Steuer:';
 				$_['text_quick']          = 'Vorschau'; 
 				$_['text_product']          = 'Artikel {current} von {total} ';

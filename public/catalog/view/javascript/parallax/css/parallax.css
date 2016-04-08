@@ -1,62 +1,88 @@
+* + .parallax {
+	margin-top: 52px;
+}
 .parallax {
-	line-height:27px;
-	font-size:15px;
-	margin-bottom:30px;
-	color:#fff;
+	font-family: 'Open Sans', sans-serif;
+	line-height: 25px;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+.parallax>div.link {
+	cursor:pointer
 }
 .parallax>div {
 	position:relative;
-	padding:19% 0;
+	padding-top: 7.3%;
+	padding-bottom: 8.3%;
 	color:#fff;
 	background-position:top;
 	background-repeat:no-repeat;
-	background-size:100%
+	background-size: cover;
+    height: 500px
 }
 .parallax p {
 	position:relative;
 	display:block;
-	max-width:720px;
-	font-size:15px;
-	line-height:27px;
-	margin-bottom:25px;
-}
-.parallax h1,
-.parallax h2 {
-	position:relative;
-	font-size:85px;
-	line-height:110%;
-	text-transform:uppercase;
-	color:#fff;
-	font-weight:bold;
-	margin:0;
+	color: #c3c3c1;
 }
 .parallax h1 {
-	margin-bottom:10px;
-}
-.parallax h4 {
-	position:relative;
-	font-size:55px;
-	color:#fd6d41;
-	line-height:100%;
-	margin:0;
-	text-transform:none;
-}
-.parallax>div a:hover {
-	border-color:#000;
-	background-color:#333;
-}
-.parallax>div a {
-	position:relative;
-	background-color: #fd6d41;
-	border: 1px solid #d45634;
+	font-size: 60px;
+	line-height: 60px;
+	font-weight: 300;
+	font-style: italic;
 	color: #fff;
-	display: inline-block;
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 30px;
-	padding: 19px 30px;
-	-webkit-transition: all 0.6s ease 0s;
-	-moz-transition: all 0.6s ease 0s;
-	-o-transition: all 0.6s ease 0s;
-	transition: all 0.6s ease 0s;
+	margin-bottom: 0;
+}
+.parallax .btn {
+	font-size: 71px;
+	line-height: 71px;
+	border-radius: 60px;
+	padding: 48px 54px;
+	position: absolute;
+	right: 1%;
+	top: 50%;
+	-moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+[class] .parallax .btn {
+	background: #006893;
+}
+[class] .parallax .btn:hover {
+	background: #464646;
+}
+.parallax h1 + p {
+	margin-top: 15px;
+}
+/*========================================================
+                   Responsive Parallax
+=========================================================*/
+@media (max-width: 991px) {
+	.parallax h1,
+	.parallax p {
+		padding-right: 25%;
+	}
+	.parallax h1 {
+		font-size: 40px;
+		line-height: 40px;
+	}
+	.parallax {
+		font-size: 15px;
+		line-height: 20px;
+	}
+	.parallax .btn {
+		font-size: 30px;
+		line-height: 1.42857;
+		padding: 8px 14.5px;
+		border-radius: 15px;
+		right: 8.6%;
+	}
+}
+@media (max-width: 479px) {
+	.parallax h1 {
+		font-size: 30px;
+		line-height: 30px;
+	}
 }

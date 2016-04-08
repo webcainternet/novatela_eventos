@@ -2,7 +2,7 @@
 class ControllerCommonFooterTop extends Controller {
 	public function index() {
 		$this->load->model('design/layout');
-		
+		$data['maintenance'] = $this->config->get('config_maintenance');
 		if (isset($this->request->get['route'])) {
 			$route = (string)$this->request->get['route'];
 		} else {
@@ -49,7 +49,7 @@ class ControllerCommonFooterTop extends Controller {
 			if (isset($part[0]) && $this->config->get($part[0] . '_status')) {
 				$data['modules'][] = $this->load->controller('module/' . $part[0]);
 			}
-			
+			if ($data['maintenance'] == 0){ 
 			if (isset($part[1])) {
 				$setting_info = $this->model_extension_module->getModule($part[1]);
 				
@@ -57,6 +57,7 @@ class ControllerCommonFooterTop extends Controller {
 					$data['modules'][] = $this->load->controller('module/' . $part[0], $setting_info);
 				}
 			}
+			 } 
 		}
 
 		if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/common/footer_top.tpl')) {

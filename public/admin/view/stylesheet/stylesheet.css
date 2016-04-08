@@ -608,3 +608,10 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .jqvmap-label {
 	z-index: 999;
 }
+.deleteall {
+	display: none;
+}
+
+.btn-success {
+    display: inline !important;
+}

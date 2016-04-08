@@ -7,10 +7,14 @@ class ControllerModuleTmCategory extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('setting/setting');
+        $this->load->model('extension/module');
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-			$this->model_setting_setting->editSetting('tm_category', $this->request->post);
+            if (!isset($this->request->get['module_id'])) {
+                $this->model_extension_module->addModule('tm_category', $this->request->post);
+            } else {
+                $this->model_extension_module->editModule($this->request->get['module_id'], $this->request->post);
+            }
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -24,6 +28,7 @@ class ControllerModuleTmCategory extends Controller {
 		$data['text_disabled'] = $this->language->get('text_disabled');
 
 		$data['entry_status'] = $this->language->get('entry_status');
+        $data['entry_name'] = $this->language->get('entry_name');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -33,6 +38,12 @@ class ControllerModuleTmCategory extends Controller {
 		} else {
 			$data['error_warning'] = '';
 		}
+
+        if (isset($this->error['name'])) {
+            $data['error_name'] = $this->error['name'];
+        } else {
+            $data['error_name'] = '';
+        }
 
 		$data['breadcrumbs'] = array();
 
@@ -51,15 +62,33 @@ class ControllerModuleTmCategory extends Controller {
 			'href' => $this->url->link('module/tm_category', 'token=' . $this->session->data['token'], 'SSL')
 		);
 
-		$data['action'] = $this->url->link('module/tm_category', 'token=' . $this->session->data['token'], 'SSL');
+        if (!isset($this->request->get['module_id'])) {
+            $data['action'] = $this->url->link('module/tm_category', 'token=' . $this->session->data['token'], 'SSL');
+        } else {
+            $data['action'] = $this->url->link('module/tm_category', 'token=' . $this->session->data['token'] . '&module_id=' . $this->request->get['module_id'], 'SSL');
+        }
 
-		$data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
+        $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 
-		if (isset($this->request->post['tm_tm_category_status'])) {
-			$data['tm_category_status'] = $this->request->post['tm_category_status'];
-		} else {
-			$data['tm_category_status'] = $this->config->get('tm_category_status');
-		}
+        if (isset($this->request->get['module_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+            $module_info = $this->model_extension_module->getModule($this->request->get['module_id']);
+        }
+
+		if (isset($this->request->post['status'])) {
+			$data['status'] = $this->request->post['status'];
+		}elseif (!empty($module_info)) {
+            $data['status'] = $module_info['status'];
+        } else {
+            $data['status'] = '';
+        }
+
+        if (isset($this->request->post['name'])) {
+            $data['name'] = $this->request->post['name'];
+        } elseif (!empty($module_info)) {
+            $data['name'] = $module_info['name'];
+        } else {
+            $data['name'] = '';
+        }
 		
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -73,6 +102,9 @@ class ControllerModuleTmCategory extends Controller {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
+        if ((utf8_strlen($this->request->post['name']) < 3) || (utf8_strlen($this->request->post['name']) > 64)) {
+            $this->error['name'] = $this->language->get('error_name');
+        }
 		return !$this->error;
 	}
 }

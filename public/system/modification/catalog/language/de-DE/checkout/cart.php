@@ -16,7 +16,7 @@ $_['text_remove']				= 'Warenkorb erfolgreich aktualisiert.';
 $_['text_login']				= 'Um Preise zu sehen bitte entweder <a href="%s">anmelden</a> oder <a href="%s">registrieren</a>.';
  
 			$_['text_items2']    = '%s';
-			$_['text_shopping_cart']    = 'Shopping Cart:';
+			$_['text_shopping_cart']    = 'Cart:';
 				
 $_['text_items']				= '%s Artikel - %s';
 $_['text_points']				= 'Bonuspunkte: %s';

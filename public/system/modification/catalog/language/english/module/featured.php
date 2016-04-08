@@ -14,7 +14,7 @@
 				$_['reviews']          = 'reviews ';
 				$_['text_product']          = 'Product {current} of {total} ';
 				
- $_['heading_title'] = 'Featured Products'; 
+$_['heading_title'] = 'Featured';
 
 // Text
 $_['text_tax']      = 'Ex Tax:';

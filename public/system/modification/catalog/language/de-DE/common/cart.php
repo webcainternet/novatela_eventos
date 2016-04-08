@@ -10,7 +10,7 @@
 // Text
  
 			$_['text_items2']    = '%s';
-			$_['text_shopping_cart']    = 'Shopping Cart:';
+			$_['text_shopping_cart']    = 'Cart:';
 				
 $_['text_items']		= '%s Artikel - %s';
 $_['text_empty']		= 'Warenkorb ist noch leer.';

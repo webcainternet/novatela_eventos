@@ -274,7 +274,6 @@
 	var loopMove;
 	for (loopMove=0;loopMove<amountSlide;loopMove++)
 	{
-		$('.cameraContents',content).append('<div class="cameraContent" />');
 		if(allLinks[loopMove]!=''){
 			//only for Wordpress plugin
 			var dataBox = $('> div ',elem).eq(loopMove).attr('data-box');
@@ -284,7 +283,9 @@
 				dataBox = '';
 			}
 			//
-			$('.camera_target_content .cameraContent:eq('+loopMove+')',wrap).append('<a class="camera_link" href="'+allLinks[loopMove]+'" '+dataBox+' target="'+allTargets[loopMove]+'"></a>');
+			$('.cameraContents',content).append('<div class="cameraContent" onclick="javascript: location.href = \''+allLinks[loopMove]+'\';" />');
+
+			//$('.camera_target_content .cameraContent:eq('+loopMove+')',wrap).append('<a class="camera_link" href="'+allLinks[loopMove]+'" '+dataBox+' target="'+allTargets[loopMove]+'"></a>');
 		}
 
 	}

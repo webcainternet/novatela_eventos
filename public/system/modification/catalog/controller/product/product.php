@@ -430,6 +430,10 @@ class ControllerProductProduct extends Controller {
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
+ 
+				'img-width'       => $this->config->get('config_image_product_width'),
+				'img-height'       => $this->config->get('config_image_product_height'),
+				
 					'name'        => $result['name'],
 					'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get('config_product_description_length')) . '..',
 					'price'       => $price,
@@ -555,8 +559,7 @@ class ControllerProductProduct extends Controller {
 
 public function add() {
 		$this->load->language('checkout/cart');
-            $hold = array();
-		    $json = array();
+        $json = array();
 		
 		if (isset($this->request->post['product_id'])) {
 			$product_id = $this->request->post['product_id'];
@@ -569,12 +572,11 @@ public function add() {
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 		
 		if ($product_info) {
-                            if (isset($this->request->post['quantity'])) {
+            if (isset($this->request->post['quantity'])) {
 				$quantity = $this->request->post['quantity'];
 			} else {
 		       $quantity = 1;								
-			}
-												
+			}								
 			if (isset($this->request->post['option'])) {
 				$option = array_filter($this->request->post['option']);
 			} else {
@@ -582,14 +584,18 @@ public function add() {
 			}
 			
 			$product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
-                        
-                    $hold = $this->session->data['cart'];  
+            
+            foreach ($product_options as $product_option) {
+				if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
+					$json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+				}
+			}
                             
 			if (!$json) {
-                    $this->cart->clear();
+                $this->cart->clearCart();
 				$this->cart->add($this->request->post['product_id'], $this->request->post['quantity'], $option);
                 
-                    $this->data = array();
+                $this->data = array();
       			
 				$json['success'] = '0';
                                 
@@ -635,15 +641,16 @@ public function add() {
 					}
 				}
 		
-          if ($this->config->get('config_tax') == '0') {    
-                                          $val = array_sum($taxes);
-                                        $total = $total - $val;
-                                }   
-                  $this->session->data['cart'] = $hold;  
-				$json['total'] = sprintf($this->currency->format($total));
-                                          $tax = $total - array_sum($taxes);
-                                  $json['tax'] =  sprintf($this->currency->format($tax));
-			        } else {
+                if ($this->config->get('config_tax') == '0') {    
+                    $val   = array_sum($taxes);
+                    $total = $total - $val;
+                }   
+                
+                $this->cart->replaceCart();                 
+				$json['total']  = sprintf($this->currency->format($total));
+                $tax            = $total - array_sum($taxes);
+                $json['tax']    = sprintf($this->currency->format($tax));
+                } else {
 			     $json['redirect'] = str_replace('&amp;', '&', $this->url->link('product/product', 'product_id=' . $this->request->post['product_id']));
 			}
 		}
@@ -745,7 +752,7 @@ public function add() {
 				if ($recurring_info['duration']) {
 					$text = $trial_text . sprintf($this->language->get('text_payment_description'), $price, $recurring_info['cycle'], $frequencies[$recurring_info['frequency']], $recurring_info['duration']);
 				} else {
-					$text = $trial_text . sprintf($this->language->get('text_payment_until_canceled_description'), $price, $recurring_info['cycle'], $frequencies[$recurring_info['frequency']], $recurring_info['duration']);
+					$text = $trial_text . sprintf($this->language->get('text_payment_cancel'), $price, $recurring_info['cycle'], $frequencies[$recurring_info['frequency']], $recurring_info['duration']);
 				}
 
 				$json['success'] = $text;

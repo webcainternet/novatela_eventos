@@ -25,11 +25,21 @@
 	  </div>
 	  <div class="panel-body">
 		<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-tm_category" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-name"><?php echo $entry_name; ?></label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" value="<?php echo $name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
+                    <?php if ($error_name) { ?>
+                        <div class="text-danger"><?php echo $error_name; ?></div>
+                    <?php } ?>
+                </div>
+            </div>
+
 		  <div class="form-group">
 			<label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
 			<div class="col-sm-10">
-			  <select name="tm_category_status" id="input-status" class="form-control">
-				<?php if ($tm_category_status) { ?>
+			  <select name="status" id="input-status" class="form-control">
+				<?php if ($status) { ?>
 				<option value="1" selected="selected"><?php echo $text_enabled; ?></option>
 				<option value="0"><?php echo $text_disabled; ?></option>
 				<?php } else { ?>

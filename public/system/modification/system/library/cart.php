@@ -106,10 +106,10 @@ class Cart {
 									if ($option_value_query->num_rows) {
 										if ($option_value_query->row['price_prefix'] == '+') {
 											$option_price += $option_value_query->row['price'];
-									} elseif ($option_value_query->row['price_prefix'] == '=') {
-										$option_price += $option_value_query->row['price'] - $product_query->row['price'];
 										} elseif ($option_value_query->row['price_prefix'] == '-') {
 											$option_price -= $option_value_query->row['price'];
+									} elseif ($option_value_query->row['price_prefix'] == '=') {
+										$option_price += $option_value_query->row['price'] - $product_query->row['price'];
 										}
 
 										if ($option_value_query->row['points_prefix'] == '+') {
@@ -314,6 +314,18 @@ class Cart {
 		}
 	}
 
+
+    public function clearCart() {
+        $this->db->query("INSERT INTO " . DB_PREFIX . "cart_p SELECT * FROM " . DB_PREFIX . "cart WHERE customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+	}
+    
+    public function replaceCart() {
+        $this->db->query("DELETE FROM " . DB_PREFIX . "cart WHERE customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "cart SELECT * FROM " . DB_PREFIX . "cart_p WHERE customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "cart_p WHERE customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
+	}
+    
 	public function update($key, $qty) {
 		$this->data = array();
 

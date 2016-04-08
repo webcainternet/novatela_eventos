@@ -1,5 +1,13 @@
 <?php
 class ControllerModuleLatest extends Controller {
+
+			var $is_mod_rastreio = false;
+			public function init($setting)
+			{
+				$this->is_mod_rastreio = true;
+				return $this->index($setting);
+			}
+			
 	public function index($setting) {
 		$this->load->language('module/latest');
 
@@ -86,9 +94,17 @@ class ControllerModuleLatest extends Controller {
 					$rating = false;
 				}
 
+$desc = html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8');
+				$quick_descr_start = strpos($desc,'</iframe>')+9;
+				$quick_descr = substr($desc, $quick_descr_start);
+				
 				$data['products'][] = array(
 					'product_id'  => $result['product_id'],
 					'thumb'       => $image,
+ 
+				'img-width'       => $setting['width'],
+				'img-height'       => $setting['height'],
+				
 					'name'        => $result['name'],
 					'description' => utf8_substr(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get('config_product_description_length')) . '..',
 					'price'       => $price,
@@ -98,7 +114,7 @@ class ControllerModuleLatest extends Controller {
  
 					'reviews'    => $review_total,
 					'author'     => $result['manufacturer'],
-					'description1' => html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'),
+					'description1' => $quick_descr,
 					'manufacturers' =>$data['manufacturers'] = $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id']),
 					'model' => $result['model'],
 					'text_availability' => $result['quantity'],

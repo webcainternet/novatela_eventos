@@ -2,7 +2,7 @@
 // Text
  
 			$_['text_items2']    = '%s';
-			$_['text_shopping_cart']    = 'Shopping Cart:';
+			$_['text_shopping_cart']    = 'Cart:';
 				
 $_['text_items']    = '%s item(s) - %s';
 $_['text_empty']    = 'Your shopping cart is empty!';

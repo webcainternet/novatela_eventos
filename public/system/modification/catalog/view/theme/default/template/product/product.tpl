@@ -206,10 +206,10 @@
                   <label>
                     <input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" />
                     <?php echo $option_value['name']; ?>
-                  <?php  if ($option_value['price_prefix'] != '=') {?>
                     <?php if ($option_value['price']) { ?>
-                    <?php } else { ?> : <?php echo $option_value['price']; }?>
+                  <?php  if ($option_value['price_prefix'] != '=') {?>
                     (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
+                    <?php } else { ?> : <?php echo $option_value['price']; }?>
                     <?php } ?>
                   </label>
                 </div>
@@ -225,11 +225,11 @@
                 <div class="checkbox">
                   <label>
                     <input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" />
-                  <?php  if ($option_value['price_prefix'] != '=') {?>
                     <?php echo $option_value['name']; ?>
-                    <?php } else { ?> : <?php echo $option_value['price']; }?>
                     <?php if ($option_value['price']) { ?>
+                  <?php  if ($option_value['price_prefix'] != '=') {?>
                     (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
+                    <?php } else { ?> : <?php echo $option_value['price']; }?>
                     <?php } ?>
                   </label>
                 </div>
@@ -244,12 +244,12 @@
                 <?php foreach ($option['product_option_value'] as $option_value) { ?>
                 <div class="radio">
                   <label>
-                  <?php  if ($option_value['price_prefix'] != '=') {?>
                     <input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" />
-                    <?php } else { ?> : <?php echo $option_value['price']; }?>
                     <img src="<?php echo $option_value['image']; ?>" alt="<?php echo $option_value['name'] . ($option_value['price'] ? ' ' . $option_value['price_prefix'] . $option_value['price'] : ''); ?>" class="img-thumbnail" /> <?php echo $option_value['name']; ?>
                     <?php if ($option_value['price']) { ?>
+                  <?php  if ($option_value['price_prefix'] != '=') {?>
                     (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
+                    <?php } else { ?> : <?php echo $option_value['price']; }?>
                     <?php } ?>
                   </label>
                 </div>
@@ -395,9 +395,9 @@
               <?php } ?>
             </div>
             <div class="button-group">
-              <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');"><span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span> <i class="fa fa-shopping-cart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-heart"></i></button>
-              <button type="button" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"><i class="fa fa-exchange"></i></button>
+              <button type="button" onclick="cart.add('<?php echo $product['product_id']; ?>');"><span class="hidden-xs hidden-sm hidden-md"><?php echo $button_cart; ?></span> <span class="btninscrevase">Inscreva-se</span></button>
+              
+              
             </div>
           </div>
         </div>
@@ -615,31 +615,4 @@ $(document).ready(function() {
 	});
 });
 //--></script> 
-<script type="text/javascript"><!--
-function a(){ 
-	$.ajax({
-		url: 'index.php?route=product/product/add',
-		type: 'post',
-        data: $(":input").serializeArray(),
-		dataType: 'json',
-		success: function(json) {
-			$('.success, .warning, .attention, information, .error').remove();
-			if (json['error']) {
-				if (json['error']['option']) {
-					for (i in json['error']['option']) {
-						$('#option-' + i).after('<span class="error">' + json['error']['option'][i] + '</span>');
-					}
-				}
-			} 
-			if (json['success']) {
-				$('.opprice').html (json['total']);
-                                $('.price-tax').html (json['tax']);
-		                          }
-	    }
-	});
-} 
-$(document).on("change", ".option", a);
-$(document).on("keyup", "#bc", a);    
-//--></script>
-
 <?php echo $footer; ?>

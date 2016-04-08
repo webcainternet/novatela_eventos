@@ -61,7 +61,6 @@ class ControllerSaleCoupon extends Controller {
       'separator' => ' :: '
       );
 
-    $data['deleteall'] =$this->url->link('sale/coupon/deleteAll', 'token=' . $this->session->data['token'], 'SSL');
     $data['coupons'] = array();
 
 
@@ -103,6 +102,7 @@ class ControllerSaleCoupon extends Controller {
     $data['entry_uses_total'] = $this->language->get('entry_uses_total');
     $data['entry_uses_customer'] = $this->language->get('entry_uses_customer');
     $data['entry_status'] = $this->language->get('entry_status');
+    $data['entry_customergroup'] = $this->language->get('entry_customergroup');
 
     $data['text_no_results'] = $this->language->get('text_no_results');
     $data['button_insert'] = $this->language->get('button_insert');
@@ -157,6 +157,11 @@ class ControllerSaleCoupon extends Controller {
       }
     }
 
+    if($this->config->get('imdevcoupon_coupon_name1')){  
+      $data['imdevcoupon_coupon_name1'] = $this->config->get('imdevcoupon_coupon_name1');
+    } else {
+      $data['imdevcoupon_coupon_name1'] = 'UNAMED';
+    }
 
     if($this->config->get('imdevcoupon_coupon_number')){  
       $data['imdevcoupon_coupon_number'] = $this->config->get('imdevcoupon_coupon_number');
@@ -230,6 +235,26 @@ class ControllerSaleCoupon extends Controller {
       $data['imdevcoupon_coupon_cuse'] = 10;
     }
 
+    $version = str_replace(".","",VERSION);
+
+    if($version > 2100) {
+      $this->load->model('customer/customer_group');
+      $data['customergroups'] = $this->model_customer_customer_group->getCustomerGroups();
+    } else {
+      $this->load->model('sale/customer_group');
+      $data['customergroups'] = $this->model_sale_customer_group->getCustomerGroups();
+    }
+   
+    if (isset($this->request->post['customergroup'])) {
+      $data['imdevcoupon_customergroup'] = $this->request->post['customergroup'];
+    } else {
+      $data['imdevcoupon_customergroup'] = explode(",", $this->config->get('imdevcoupon_customergroup'));
+    } 
+    
+    if($data['imdevcoupon_customergroup'] == "") {
+       $data['imdevcoupon_customergroup'] = array();
+    }
+
     if (isset($this->session->data['success'])) {
       $data['success'] = $this->session->data['success'];
       
@@ -246,7 +271,6 @@ class ControllerSaleCoupon extends Controller {
     $this->response->setOutput($this->load->view('sale/coupon_list.tpl', $data));
 
   }
-
  
   public function couponcsvupload(){
     ini_set("auto_detect_line_endings", true);   
@@ -350,6 +374,36 @@ private function validatecsv($columns1) {
       }
 }
 
+public function exportcouponcsvtemplate(){
+ $fields = array();
+ $sample_data = array();
+ array_push($fields,'name','code','discount','date_start','date_end','status');
+ $this->load->model('marketing/coupon');
+ $coupons = $this->model_marketing_coupon->getCoupons();
+ $data_rows = count($coupons);
+ for($i =0; $i < $data_rows; $i++){
+   $sample_data[$i]['name'] = $coupons[$i]['name'];
+   $sample_data[$i]['code'] = $coupons[$i]['code'];
+   $sample_data[$i]['discount'] = $coupons[$i]['discount'];
+   $sample_data[$i]['date_start'] = $coupons[$i]['date_start'];
+   $sample_data[$i]['date_end'] = $coupons[$i]['date_end'];
+   $sample_data[$i]['status'] = $coupons[$i]['status'];
+ }
+
+$version = str_replace(".","",VERSION);
+
+if($version < 2100) {
+   $this->load->library('exportcsv');
+}
+ $csv = new ExportCSV();
+ $csv->fields = $fields;
+ $csv->result = $sample_data;
+ $csv->process();
+ $date = date('Y-m-d');
+ $csv->download('store_coupons_'.$date.'.csv');
+
+}
+
 
 public function couponcsvtemplate(){
 
@@ -360,7 +414,7 @@ public function couponcsvtemplate(){
  $this->load->model('sale/coupon');
  $number = $this->model_sale_coupon->getlastid();
  for($i =0; $i < $data_rows; $i++,$number++){
-   $sample_data[$i]['name'] = "Coupon$number";
+   $sample_data[$i]['name'] = $this->config->get('imdevcoupon_coupon_name1');
    $sample_data[$i]['code'] = $code.substr(strtoupper(uniqid()),7);
    $sample_data[$i]['type'] = $this->config->get('imdevcoupon_coupon_type');
    $sample_data[$i]['discount'] = $this->config->get('imdevcoupon_coupon_discount');
@@ -374,9 +428,11 @@ public function couponcsvtemplate(){
    $sample_data[$i]['date_end'] = $this->config->get('imdevcoupon_coupon_edate');
    $sample_data[$i]['uses_total'] = $this->config->get('imdevcoupon_coupon_usetotal');
    $sample_data[$i]['uses_customer'] = $this->config->get('imdevcoupon_coupon_cuse');
+   $sample_data[$i]['customer_group_id'] = explode(",", $this->config->get('imdevcoupon_customergroup'));
    $sample_data[$i]['status'] = TRUE;
 
  }
+
 $link  = $this->url->link('marketing/coupon', 'token=' . $this->session->data['token'], 'SSL');
 $this->model_sale_coupon->bulkAddCoupon($sample_data);
 $this->session->data['success'] = "You have successfully imported $data_rows coupons. See uploaded coupons here <a href='$link'>Coupons</a>";
@@ -504,20 +560,34 @@ private function validateDelete() {
 
 public function setting(){
    $temp = array();
+
+    if(isset($this->request->post['name1'])){  
+      $temp['imdevcoupon_coupon_name1'] = $this->request->post['name1'];
+    } else {
+      $temp['imdevcoupon_coupon_name1'] = 'UNAMED';
+    }
+
     if(isset($this->request->post['prefix'])){  
       $temp['imdevcoupon_coupon_prefix'] = $this->request->post['prefix'];
     } else {
       $temp['imdevcoupon_coupon_prefix'] = 'PREF';
     }
 
-    if(isset($this->request->post['number']) &&  $this->request->post['number'] <= 500){  
+    if(isset($this->request->post['number']) &&  $this->request->post['number'] <= 1000){  
       $temp['imdevcoupon_coupon_number'] = $this->request->post['number'];
     } else {
-      $temp['imdevcoupon_coupon_number'] = '500';
+      $temp['imdevcoupon_coupon_number'] = '1000';
+    }
+
+    if(isset($this->request->post['customergroup'])) {  
+     $this->request->post['customergroup'] = $this->request->post['customergroup'];
+    } else {
+     $this->request->post['customergroup'] = array();
     }
 
     $this->load->model('setting/setting');
    
+    $temp['imdevcoupon_coupon_name1'] = $this->request->post['name1'];
     $temp['imdevcoupon_coupon_prefix'] = $this->request->post['prefix'];
    // $temp['imdevcoupon_coupon_number'] = $this->request->post['number'];
     $temp['imdevcoupon_coupon_type'] = $this->request->post['ctype'];
@@ -532,6 +602,8 @@ public function setting(){
     $temp['imdevcoupon_coupon_cuse'] = $this->request->post['cuse'];
     $temp['imdevcoupon_coupon_product'] = $this->request->post['pid'];
     $temp['imdevcoupon_coupon_category'] = $this->request->post['ccat'];
+    $temp['imdevcoupon_customergroup'] = $this->request->post['customergroup'];
+    
     $this->model_setting_setting->editSetting('imdevcoupon', $temp);
     $json = array();
     $this->response->addHeader('Content-Type: application/json');
